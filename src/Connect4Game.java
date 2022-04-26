@@ -13,7 +13,7 @@ public class Connect4Game
 	// The top-level GUI object.
 	private final Connect4 gui;
 
-	// State that is transient durina a game.
+	// State that is transient during a game.
 	private final int STATE_PAUSED = 1;
 	private final int STATE_PLAYING = 2;
 	private final int STATE_MATCHOVER = 3;
