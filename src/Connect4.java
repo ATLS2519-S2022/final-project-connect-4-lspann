@@ -3,7 +3,7 @@
  * Title:            Connect4
  * Files:            Connect4.java, Connect4Game.java, Connect4Board.java,
  * 					 Arbitrator.java, TimeUpException.java, PlayerThread.java, Player.java
- * 					 HumanPlayer.java, RandomOlayer.java, [OtherPlayers].java
+ * 					 HumanPlayer.java, RandomPlayer.java, [OtherPlayers].java
  * Semester:         Spring 2021
  * 
  * Author:           Daniel Szafir, daniel.szafir@colorado.edu
