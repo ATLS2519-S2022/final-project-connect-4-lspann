@@ -707,4 +707,3 @@ public class Connect4 extends Application
 		showMessageDialog(msg);
 	}
 }
-
