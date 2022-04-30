@@ -36,24 +36,32 @@ public class GreedyPlayer implements Player
         int maxCol = 0;
         // Find maximum score from all possible moves
         
-        while (col < (board.numCols() - 1)) 
+        while (col <= (board.numCols() - 1)) 
         {
-        	board.move(col, id);
+        	
         	if(!board.isValidMove(col))
         	{
-        		continue;
+        		col++;
         	}
-        	rowScore = calcScore(board, id);
-        	if (rowScore > maxScore)
+        	
+        	else
         	{
-        		maxCol = col;
-        		maxScore = rowScore;
+        		
+	        	board.move(col, id);
+	        	rowScore = calcScore(board, id);
+	        	
+	        	if (rowScore > maxScore)
+	        	{
+	        		maxCol = col;
+	        		maxScore = rowScore;
+	        	}
+	        	board.unmove(col, id);
+	        	col++;
+	        	arb.setMove(maxCol);
+        	
         	}
-        	board.unmove(col, id);
-        	col++;
         }
         
-        arb.setMove(maxCol);
     }
     
 	// Return the number of connect-4s that player #id has.
