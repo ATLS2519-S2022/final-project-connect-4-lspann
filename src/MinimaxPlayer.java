@@ -16,18 +16,19 @@ public class MinimaxPlayer implements Player {
     }
 
     @Override
-    public void calcMove(
-        Connect4Board board, int oppMoveCol, Arbitrator arb) 
-        throws TimeUpException {
+    public void calcMove(Connect4Board board, int oppMoveCol, Arbitrator arb) 
+        throws TimeUpException 
+    {
         
-        if (board.isFull()) {
+        if (board.isFull()) 
+        {
             throw new Error ("Complaint: The board is full!");
         }
         
-        int move = 0; 
         int maxDepth = 1;
         
-        while(!arb.isTimeUp() && maxDepth <= board.numEmptyCells()) {
+        while(!arb.isTimeUp() && maxDepth <= board.numEmptyCells()) 
+        {
         	// do minimax search
         	// start the first level of minimax, set move as you're finding the bestScore
 			// first level is maximizing so next level is minimizing (isMaximizing = FALSE)
@@ -35,20 +36,24 @@ public class MinimaxPlayer implements Player {
 			int topScore = -1000;
 			int bestScore = 0; //This will change right away from call to minimax
 			//for all possible first moves, find the best one based on minimax as depth increases and time allowed
-			for(int col = 0; col < (board.numCols() - 1); col++)
+			for(int col = 0; col <= (board.numCols() - 1); col++)
 			{
 				if(!board.isValidMove(col))
         	    {
-        		    continue;
+        		    col++;
         	    }
-				board.move(col, id);
-                bestScore = minimax(board, maxDepth-1, false, arb);
-				if(bestScore > topScore)
+				else
 				{
-                    topScore = bestScore;
-					arb.setMove(move);
-                }					
-		        board.unmove(col, id);
+					
+					board.move(col, id);
+	                bestScore = minimax(board, maxDepth-1, false, arb);
+					if(bestScore >= topScore)
+					{
+	                    topScore = bestScore;
+						arb.setMove(col);
+	                }					
+			        board.unmove(col, id);
+				}
             } 
             maxDepth++; //crank up another level while there is still time and moves left
         }        
@@ -65,7 +70,7 @@ public class MinimaxPlayer implements Player {
 		if (isMaximizing)
 		{
 			bestScore = -1000;
-			for(int col = 0; col < (board.numCols() - 1); col++)
+			for(int col = 0; col <= (board.numCols() - 1); col++)
 			{
 				if(!board.isValidMove(col))
         	    {
@@ -81,7 +86,7 @@ public class MinimaxPlayer implements Player {
 		else /* minimizing player */ 
 		{
 			bestScore = 1000;
-			for(int col = 0; col < (board.numCols() - 1); col++)
+			for(int col = 0; col <= (board.numCols() - 1); col++)
 			{
 				if(!board.isValidMove(col))
         	    {
