@@ -1,3 +1,9 @@
+/* Title: AlphaBetaPlayer
+ * 
+ * Author: Lizzy Spann elsp9468@colorado.edu
+ * 
+ * Written: 04/28/2022
+ */
 public class AlphaBetaPlayer implements Player {
 	int id; 
 	int opponent_id;
@@ -23,8 +29,7 @@ public class AlphaBetaPlayer implements Player {
         if (board.isFull()) {
             throw new Error ("Complaint: The board is full!");
         }
-        
-        int move = 0; 
+         
         int maxDepth = 1;
 		int alpha = -1000;
 		int beta = 1000;
@@ -37,20 +42,25 @@ public class AlphaBetaPlayer implements Player {
 			int topScore = -1000;
 			int bestScore = 0; //This will change right away from call to minimax
 			//for all possible first moves, find the best one based on minimax as depth increases and time allowed
-			for(int col = 0; col < (board.numCols() - 1); col++)
+			for(int col = 0; col <= (board.numCols() - 1); col++)
 			{
 				if(!board.isValidMove(col))
         	    {
-        		    continue;
+        		    col++;
         	    }
-				board.move(col, id);
-                bestScore = minimax(board, maxDepth-1, alpha, beta, false, arb);
-				if(bestScore > topScore)
+				
+				else
 				{
-                    topScore = bestScore;
-					arb.setMove(move);
-                }					
-		        board.unmove(col, id);
+					
+					board.move(col, id);
+	                bestScore = minimax(board, maxDepth-1, alpha, beta, false, arb);
+					if(bestScore >= topScore)
+					{
+	                    topScore = bestScore;
+						arb.setMove(col);
+	                }					
+			        board.unmove(col, id);
+				}
             } 
             maxDepth++; //crank up another level while there is still time and moves left
         }        
@@ -68,7 +78,7 @@ public class AlphaBetaPlayer implements Player {
 		if (isMaximizing)
 		{
 			int bestScore = -1000;
-			for(int col = 0; col < (board.numCols() - 1); col++)
+			for(int col = 0; col <= (board.numCols() - 1); col++)
 			{
 				if(!board.isValidMove(col))
         	    {
@@ -90,7 +100,7 @@ public class AlphaBetaPlayer implements Player {
 		else /* minimizing player */ 
 		{
 			int bestScore = 1000;
-			for(int col = 0; col < (board.numCols() - 1); col++)
+			for(int col = 0; col <= (board.numCols() - 1); col++)
 			{
 				if(!board.isValidMove(col))
         	    {
